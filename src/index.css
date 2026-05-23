@@ -120,15 +120,23 @@ img {
 }
 
 .brand-mark {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
-  color: var(--paper);
-  background: var(--neon);
+  padding: 4px;
+  background: var(--paper);
   border: 1px solid var(--paper);
-  box-shadow: 5px 5px 0 var(--orange);
-  transform: skewX(-8deg);
+  box-shadow: 5px 5px 0 var(--orange), inset 0 0 0 2px var(--neon);
+  transform: rotate(-4deg);
+  overflow: hidden;
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(1.22) rotate(10deg);
 }
 
 .brand strong {
@@ -285,7 +293,7 @@ img {
 .hero-title span {
   display: block;
   overflow: hidden;
-  animation: headlineReveal 900ms cubic-bezier(0.19, 1, 0.22, 1) both;
+  animation: headlineReveal 560ms cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
 .hero-title span:nth-child(2) {
@@ -720,6 +728,8 @@ footer {
 .agenda-card {
   min-height: 330px;
   padding: 22px;
+  min-width: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--line);
@@ -765,9 +775,10 @@ footer {
 .agenda-card h3 {
   margin: 14px 0 18px;
   font-family: var(--display);
-  font-size: clamp(24px, 3vw, 38px);
-  line-height: 1;
+  font-size: clamp(22px, 1.85vw, 28px);
+  line-height: 1.08;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .agenda-card p {
@@ -979,13 +990,23 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0;
 }
 
 .footer-brand-block p {
   margin: 0;
+  max-width: 34rem;
   font-size: 0.88rem;
   color: rgba(17, 21, 16, 0.68);
+  overflow-wrap: anywhere;
 }
+
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .footer-social a,
 .footer-top {
   display: inline-flex;
@@ -1018,7 +1039,7 @@ footer {
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.19, 1, 0.22, 1);
+  transition: opacity 420ms ease, transform 420ms cubic-bezier(0.19, 1, 0.22, 1);
   transition-delay: var(--delay, 0ms);
 }
 
@@ -1261,8 +1282,8 @@ footer {
   }
 
   .brand-mark {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
   }
 
   .hero-lede,
@@ -1445,8 +1466,8 @@ footer {
   }
 
   .brand-mark {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     box-shadow: 3px 3px 0 var(--orange);
   }
 
@@ -1661,17 +1682,52 @@ footer {
 
   .footer {
     grid-template-columns: 1fr;
-    justify-items: start;
+    justify-items: center;
     padding-top: 28px;
+    gap: 18px;
+    text-align: center;
   }
 
   .footer-main {
+    display: grid;
     grid-template-columns: 1fr;
-    align-items: start;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .footer-brand-block {
+    align-items: center;
+    width: 100%;
+  }
+
+  .footer-brand-block .brand {
+    justify-content: center;
+    width: auto;
+  }
+
+  .footer-brand-block p {
+    max-width: 100%;
+    font-size: 0.82rem;
+    line-height: 1.45;
   }
 
   .footer-social {
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, max-content));
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .footer-top {
+    width: max-content;
+  }
+
+  .footer-powered {
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -1689,12 +1745,28 @@ footer {
   }
 
   .brand-mark {
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
   }
 
   .brand strong {
     font-size: 12px;
+  }
+
+  .footer-social {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(100%, 15rem);
+  }
+
+  .footer-social a {
+    justify-content: center;
+    min-width: 0;
+    padding-inline: 8px;
+    font-size: 10px;
+  }
+
+  .footer-top {
+    font-size: 10px;
   }
 
   .hero-grid {

@@ -16,7 +16,6 @@ import {
   Sparkles,
   Vote,
   X,
-  Zap,
 } from 'lucide-react';
 import { geoMercator, geoPath } from 'd3-geo';
 import { heroPosterImg } from './assets/images';
@@ -95,8 +94,6 @@ const socialLinks = [
   ['LinkedIn', 'https://www.linkedin.com/'],
 ];
 
-// ─── Cockroach Cursor ─────────────────────────────────────────────────────────
-
 const REELS = [
   {
     id: 'reel-1',
@@ -134,8 +131,6 @@ const REELS = [
     bg: 'linear-gradient(135deg,#6d28d9 0%,#581c87 55%,#0d0020 100%)',
   },
 ];
-
-
 
 // ─── Hooks ───────────────────────────────────────────────────────────────────
 
@@ -200,9 +195,11 @@ function useReveal() {
 function BrandMark() {
   return (
     <a href="#top" className="brand" aria-label="Cockroach Janta Party home">
-      <span className="brand-mark"><Zap size={18} /></span>
+      <span className="brand-mark">
+        <img src="/images/cockroach_cur.png" alt="" />
+      </span>
       <span>
-        <strong>CJP</strong>
+        <strong>cockroachjantaparty</strong>
         <small>Gen Z civic signal / Est. 2026</small>
       </span>
     </a>
@@ -523,6 +520,7 @@ function InstagramEmbed() {
           scroll-snap-type: x mandatory;
           scrollbar-width: none;
           width: min(100%, var(--content, 1120px));
+          -webkit-overflow-scrolling: touch;
         }
         .reels-rail::-webkit-scrollbar {
           display: none;
@@ -538,14 +536,22 @@ function InstagramEmbed() {
           scroll-snap-align: start;
           text-decoration: none;
         }
+        .reel-link::-webkit-scrollbar {
+          display: none;
+        }
         .reel-frame {
           background: #fff;
           border: 0;
           height: 100%;
           inset: 0;
+          overflow: hidden;
           position: absolute;
+          scrollbar-width: none;
           width: 100%;
           z-index: 1;
+        }
+        .reel-frame::-webkit-scrollbar {
+          display: none;
         }
         .reel-badge {
           align-items: center;
@@ -586,13 +592,31 @@ function InstagramEmbed() {
           .reels-rail {
             grid-auto-columns: minmax(16rem, 86vw);
             max-width: 100%;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          }
+          .reels-rail::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
           }
           .reel-link {
             border-radius: 0.6rem;
+            overflow: hidden;
           }
           .reel-badge {
             right: 0.65rem;
             top: 0.65rem;
+          }
+          .reel-frame {
+            overflow: hidden !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+          }
+          .reel-frame::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
           }
         }
       `}</style>
@@ -606,6 +630,7 @@ function InstagramEmbed() {
           Follow the signal
         </div>
       </div>
+
       <div className="reels-rail" aria-label="Instagram reels">
         {REELS.map((reel) => (
           <article
@@ -618,6 +643,7 @@ function InstagramEmbed() {
               src={reel.embed}
               title={`${reel.title} Instagram reel`}
               loading="lazy"
+              scrolling="no"
               allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
             />
@@ -875,7 +901,6 @@ function IndiaMapSection() {
         }
       `}</style>
 
-      {/* Header */}
       <div className="india-map-head">
         <div style={{ fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.5, marginBottom: '0.5rem' }}>
           Infestation map
@@ -888,7 +913,6 @@ function IndiaMapSection() {
         </p>
       </div>
 
-      {/* Progress bar */}
       <div className="india-map-progress">
         <div style={{
           height: '100%',
@@ -899,7 +923,6 @@ function IndiaMapSection() {
         }} />
       </div>
 
-      {/* Map */}
       <div className="india-map-wrap">
         {!path && <div className="map-loading">Loading India map</div>}
 
@@ -943,13 +966,11 @@ function IndiaMapSection() {
           </svg>
         )}
 
-        {/* Roach overlays */}
         {[...clicked].map((name) => (
           <RoachOverlay key={name} point={stateCenters.get(name)} />
         ))}
       </div>
 
-      {/* Tooltip */}
       {tooltip && (
         <div style={{
           position: 'fixed',
@@ -969,7 +990,6 @@ function IndiaMapSection() {
         </div>
       )}
 
-      {/* Reset */}
       {infested > 0 && (
         <button
           type="button"
@@ -997,6 +1017,39 @@ function IndiaMapSection() {
 function Footer() {
   return (
     <footer className="footer">
+      <style>{`
+        @media (max-width: 640px) {
+          .footer-main {
+            align-items: center !important;
+            justify-items: center !important;
+            text-align: center !important;
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            width: 100% !important;
+          }
+          .footer-brand-block {
+            align-items: center !important;
+            display: flex !important;
+            flex-direction: column !important;
+            text-align: center !important;
+            width: 100% !important;
+          }
+          .footer-social {
+            justify-content: center !important;
+            width: 100% !important;
+          }
+          .footer-top {
+            align-self: center !important;
+            text-align: center !important;
+            display: flex !important;
+            justify-content: center !important;
+          }
+          .footer-powered {
+            text-align: center !important;
+            width: 100% !important;
+          }
+        }
+      `}</style>
       <div className="footer-main">
         <div className="footer-brand-block">
           <BrandMark />
